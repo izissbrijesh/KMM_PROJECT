@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyComposeApp</title>
+    <link type="text/css" rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script lang="javascript">
+
+   class JSPlatform {
+
+     constructor() {
+         this.key = "jqeqMYirDfjLbHWrJqxZIjpJnoupom3W";
+         this.iv = "1234567812345678";
+     }
+
+     decryptStrings(encryptedString) {
+         try {
+             const cryptoKey = CryptoJS.enc.Utf8.parse(this.key);
+             const cryptoIv = CryptoJS.enc.Utf8.parse(this.iv);
+             const bytes = CryptoJS.AES.decrypt(encryptedString, cryptoKey, {
+                 iv: cryptoIv,
+                 mode: CryptoJS.mode.CBC,
+                 padding: CryptoJS.pad.NoPadding,
+             });
+
+             let decrypted = bytes.toString(CryptoJS.enc.Utf8);
+             return decrypted.replace(/\u0003/g, ""); // Remove padding
+         } catch (e) {
+             console.error("Decryption failed:", e);
+             return null;
+         }
+     }
+
+     encryptStrings(string) {
+         try {
+             const cryptoKey = CryptoJS.enc.Utf8.parse(this.key);
+             const cryptoIv = CryptoJS.enc.Utf8.parse(this.iv);
+             const encrypted = CryptoJS.AES.encrypt(string, cryptoKey, {
+                 iv: cryptoIv,
+                 mode: CryptoJS.mode.CBC,
+                 padding: CryptoJS.pad.Pkcs7,
+             });
+
+             return encrypted.toString();
+         } catch (e) {
+             console.error("Encryption failed:", e);
+             return null;
+         }
+     }
+ }
+
+  const platform = new JSPlatform();
+  decrypt = (string) => platform.decryptStrings(string);
+  encrypt = (string) => platform.encryptStrings(string);
+
+    </script>
+    <script type="application/javascript" src="composeApp.js"></script>
+</head>
+<body>
+</body>
+</html>
