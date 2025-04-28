@@ -9,28 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <script lang="javascript">
 
-        // Safe showError function
-        function showError(message) {
-
-        const notyf = new Notyf({
-        position: {
-        x: 'center',
-        y: 'top',
-      },
-        types: [
-     {
-      type: 'info',
-      background: 'red',
-      icon: false
-    }
-  ]
-});
-
-notyf.open({
-  type: 'error',
-  message:  `<strong style="font-size:16px;">${'Error'}</strong><br><span>${message}</span>`
-});
-
+        function openWheelTimePicker(callback) {
+         callback("Clicked")
         }
 
    class JSPlatform {
